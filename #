@@ -1,56 +1,7 @@
--- =====================================================
--- DATABASE: Perpustakaan
--- =====================================================
-CREATE DATABASE IF NOT EXISTS perpustakaan;
-USE perpustakaan;
-
--- =====================================================
--- TABEL PETUGAS
--- =====================================================
-CREATE TABLE petugas (
-    id_petugas INT AUTO_INCREMENT PRIMARY KEY,
-    nama_petugas VARCHAR(100) NOT NULL,
-    username VARCHAR(20) NOT NULL,
-    password VARCHAR(255) NOT NULL
-);
-
--- =====================================================
--- TABEL ANGGOTA
--- =====================================================
-CREATE TABLE anggota (
-    id_anggota INT AUTO_INCREMENT PRIMARY KEY,
-    nama_anggota VARCHAR(100) NOT NULL,
-    alamat TEXT NOT NULL,
-    no_hp VARCHAR(15)
-);
-
--- =====================================================
--- TABEL BUKU
--- =====================================================
-CREATE TABLE buku (
-    id_buku INT AUTO_INCREMENT PRIMARY KEY,
-    judul VARCHAR(150) NOT NULL,
-    penulis VARCHAR(100) NOT NULL,
-    penerbit VARCHAR(100) NOT NULL,
-    tahun_terbit YEAR,
-    stok INT DEFAULT 0
-);
-
--- =====================================================
--- TABEL PEMINJAMAN
--- =====================================================
-CREATE TABLE peminjaman (
-    id_peminjaman INT AUTO_INCREMENT PRIMARY KEY,
-    id_petugas INT,
-    id_anggota INT,
-    id_buku INT,
-    tanggal_pinjam DATE,
-    tanggal_kembali DATE,
-    status ENUM('Dipinjam', 'Dikembalikan') DEFAULT 'Dipinjam',
-    FOREIGN KEY (id_petugas) REFERENCES petugas(id_petugas)
-        ON UPDATE CASCADE ON DELETE SET NULL,
-    FOREIGN KEY (id_anggota) REFERENCES anggota(id_anggota)
-        ON UPDATE CASCADE ON DELETE SET NULL,
-    FOREIGN KEY (id_buku) REFERENCES buku(id_buku)
-        ON UPDATE CASCADE ON DELETE SET NULL
-);
+Private Sub Worksheet_Change(ByVal Target As Range)
+    If Not Intersect(Target, Range("A:A")) Is Nothing Then
+        Application.EnableEvents = False
+        Target.Value = Target.Value * 1000
+        Application.EnableEvents = True
+    End If
+End Sub
