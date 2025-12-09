@@ -1,7 +1,6 @@
 Private Sub Worksheet_Change(ByVal Target As Range)
-    If Not Intersect(Target, Range("A:A")) Is Nothing Then
-        Application.EnableEvents = False
-        Target.Value = Target.Value * 1000
-        Application.EnableEvents = True
-    End If
+    If Not IsNumeric(Target.Value) Or Target.CountLarge > 1 Then Exit Sub
+    Application.EnableEvents = False
+    Target.Value = Target.Value * 1000
+    Application.EnableEvents = True
 End Sub
